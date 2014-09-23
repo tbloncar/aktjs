@@ -34,16 +34,39 @@ var Akt = (function(jQ, pOL, undefined) {
   }
 
   return {
+    
+    /**
+     * Wraps elements that match AKT selector in a jQuery object.
+     *
+     * @param {string} slctr - The AKT selector.
+     */
     $: function(slctr) {
       return jQ('[data-akt-s="' + slctr + '"]'); 
     },
 
+    /**
+     * Binds handler to elements that match AKT selector.
+     *
+     * @param {string} slctr - The AKT selector.
+     * @param {string} evnt - The DOM event name.
+     * @param {function} cb - The event handler function.
+     */
     on: function(slctr, evnt, cb) {
       this.$(slctr).on(evnt, function(e) {
         var dataStr = $(this).data('aktD');
 
         cb.call(this, e, parseDataStr(dataStr)); 
       }); 
+    },
+
+    /**
+     * Unbinds all handlers for event from elements that match AKT selector.
+     *
+     * @param {string} slctr - The AKT selector.
+     * @param {string} evnt - The DOM event name.
+     */
+    off: function(slctr, evnt) {
+      this.$(slctr).off(evnt);
     }
   };
 
