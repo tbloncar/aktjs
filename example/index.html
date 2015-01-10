@@ -3,17 +3,35 @@
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <title>akt.js</title>
-  <link rel="app.css" href="app.css" type="text/css">
+  <link rel="stylesheet" href="app.css" type="text/css">
 </head>
 <body>
-  <!-- Event selector and data in one attribute -->
   <button class="a-btn"
     data-akt-s="the-btn"
-    data-akt-d="name: 'george', ids: [22, 33]">Push It</button>
+    data-akt-d="name: george, age: 22">Push It</button>
 
-  <!-- jQuery dependency -->
-  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <button class="a-btn"
+    data-akt-s="other-btn"
+    data-akt-d="name: mary, age: 27">Real Good</button>
+
   <script src="akt.min.js"></script>
-  <script src="app.js"></script>
+  <script>
+    (function(akt, undefined) {
+
+      // Akt on an event and get immediate access to data
+      akt.on('the-btn', 'click', function(e, data) {
+        alert('NAME: ' + data.name + ' AGE: ' + data.age);  
+        console.log('DATA1:', data);
+      });
+
+      // Collect nodes in AktWrapper w/ similar on() method
+      var otherBtn = akt.get('other-btn');
+      otherBtn.on('click', function(e, data) {
+        alert('NAME: ' + data.name + ' AGE: ' + data.age);
+        console.log('DATA2:', data);
+      });
+    
+    }(Akt)); 
+  </script>
 </body>
 </html>
